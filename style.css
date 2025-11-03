@@ -156,6 +156,7 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-soft);
+    margin-bottom: 2rem;
 }
 
 .hero::before {
@@ -276,6 +277,24 @@ body {
 .button.ghost:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.9);
+}
+
+.button.large {
+    padding: 1rem 2.5rem;
+    font-size: 1.05rem;
+}
+
+/* Hero Download Buttons */
+.hero-download-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0 2.5rem 0;
+}
+
+.hero-download-buttons .store-button {
+    min-width: 160px;
 }
 
 .hero-stats {
@@ -889,6 +908,16 @@ body {
 
     .hero-actions {
         flex-direction: column;
+    }
+
+    .hero-download-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-download-buttons .store-button {
+        width: 100%;
+        max-width: 280px;
     }
 
 
