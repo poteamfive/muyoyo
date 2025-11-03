@@ -12,10 +12,125 @@
     --shadow-soft: 0 24px 60px rgba(90, 93, 240, 0.12);
 }
 
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --primary: #7679ff;
+    --primary-dark: #5a5df0;
+    --accent: #a4aeff;
+    --bg: #0a0a0a;
+    --surface: #1a1a1a;
+    --text: #e0e0e0;
+    --muted: #a0a0a0;
+    --border: rgba(118, 121, 255, 0.2);
+    --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .carousel-container {
+    background: #1a1a1a;
+}
+
+[data-theme="dark"] .feature-card {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .carousel-btn {
+    background: rgba(26, 26, 26, 0.9);
+    color: var(--text);
+}
+
+[data-theme="dark"] .carousel-btn:hover {
+    background: rgba(40, 40, 40, 1);
+}
+
+[data-theme="dark"] .store-button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Accessibility Improvements */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+    border-radius: 0 0 8px 0;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Improved Focus States for Keyboard Navigation */
+*:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Remove default outlines for mouse users */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Dark Mode Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle-light,
+.theme-toggle-dark {
+    font-size: 1.5rem;
+    transition: opacity 0.3s ease;
+}
+
+.theme-toggle-dark {
+    position: absolute;
+    opacity: 0;
+}
+
+[data-theme="dark"] .theme-toggle-light {
+    opacity: 0;
+}
+
+[data-theme="dark"] .theme-toggle-dark {
+    opacity: 1;
 }
 
 body {
@@ -136,6 +251,9 @@ body {
     font-size: 0.95rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     border: 1px solid transparent;
+    /* Better touch targets for mobile */
+    min-height: 48px;
+    touch-action: manipulation;
 }
 
 .button.primary {
@@ -203,22 +321,271 @@ body {
     margin-bottom: 2.5rem;
 }
 
-/* Clean screenshot card */
-.app-screenshot {
-    margin: 0;
-    /* Make the screenshot noticeably smaller on desktop */
-    width: clamp(200px, 20vw, 280px);
-    border-radius: 22px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(31, 41, 51, 0.18);
-    border: 1px solid rgba(31, 41, 51, 0.08);
-    background: #fff;
+/* Screenshot Carousel */
+.screenshot-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.app-screenshot img {
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    box-shadow: 0 20px 40px rgba(31, 41, 51, 0.18);
+    background: #000;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    position: relative;
+    margin: 0;
+}
+
+.carousel-slide img {
     display: block;
     width: 100%;
     height: auto;
+    max-height: 600px;
+    object-fit: contain;
+}
+
+.carousel-slide figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    color: white;
+    padding: 1.5rem 1rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.carousel-slide:not(.active) {
+    display: none;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text);
+    border: none;
+    font-size: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    /* Better touch targets */
+    touch-action: manipulation;
+}
+
+.carousel-btn:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn-prev {
+    left: 20px;
+}
+
+.carousel-btn-next {
+    right: 20px;
+}
+
+/* Carousel Dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background: var(--primary);
+    width: 24px;
+    border-radius: 5px;
+}
+
+.carousel-dot:hover:not(.active) {
+    background: var(--accent);
+}
+
+/* Screenshot Gallery Grid */
+.screenshot-gallery {
+    margin: 4rem 0;
+    padding: 0 1rem;
+}
+
+.gallery-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    color: var(--text);
+}
+
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.screenshot-item {
+    position: relative;
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(31, 41, 51, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #000;
+    cursor: pointer;
+}
+
+.screenshot-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(31, 41, 51, 0.15);
+}
+
+.screenshot-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: top;
+}
+
+.screenshot-item figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6));
+    color: white;
+    padding: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.screenshot-item:hover figcaption {
+    transform: translateY(0);
+}
+
+/* Dark mode adjustments for gallery */
+[data-theme="dark"] .screenshot-item {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .screenshot-item:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+/* Lightbox Modal */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-caption {
+    color: white;
+    margin-top: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 640px) {
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+    }
 }
 
 .section-header {
@@ -296,62 +663,7 @@ body {
     line-height: 1.5;
 }
 
-.app-info {
-    margin: 3rem 0;
-    padding: 2.5rem 2.2rem;
-    border-radius: 26px;
-    background: linear-gradient(135deg, rgba(90, 93, 240, 0.1), rgba(159, 169, 255, 0.22));
-    box-shadow: var(--shadow-soft);
-}
-
-.app-info-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.6rem;
-}
-
-.info-card {
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 20px;
-    padding: 1.6rem;
-    box-shadow: 0 15px 32px rgba(31, 41, 51, 0.12);
-    border: 1px solid rgba(90, 93, 240, 0.12);
-}
-
-.info-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.7rem;
-    color: var(--primary-dark);
-}
-
-.info-card p {
-    font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-.keywords-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.keywords-list span {
-    background: rgba(90, 93, 240, 0.16);
-    color: var(--primary-dark);
-    border-radius: 999px;
-    padding: 0.35rem 0.8rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
+/* Removed unused classes: .app-info, .info-grid, .info-card, .keywords-list */
 
 .highlights {
     display: flex;
@@ -482,14 +794,22 @@ body {
         padding: 2.5rem 2rem;
     }
 
-    .phone-mockup {
-        transform: scale(0.95);
-    }
 }
 
 @media (max-width: 720px) {
     .container {
         padding: 2rem 1.2rem 3rem;
+    }
+
+    /* Screenshot gallery responsive */
+    .screenshot-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .gallery-title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .hero {
@@ -504,9 +824,6 @@ body {
         margin: 1.2rem auto 1.6rem;
     }
 
-    .phone-mockup {
-        transform: scale(0.9);
-    }
 
     .feature-grid {
         gap: 1.2rem;
@@ -522,9 +839,45 @@ body {
 }
 
 @media (max-width: 540px) {
+    /* Improve tap targets and spacing for mobile */
     .hero-stats {
         flex-direction: column;
         gap: 0.9rem;
+    }
+
+    /* Larger tap targets for mobile */
+    .button {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .carousel-dot {
+        width: 12px;
+        height: 12px;
+        margin: 0 4px;
+    }
+
+    .carousel-dot.active {
+        width: 32px;
+    }
+
+    /* Screenshot gallery on mobile */
+    .screenshot-gallery {
+        margin: 2.5rem 0;
+        padding: 0;
+    }
+
+    .screenshot-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .screenshot-item figcaption {
+        font-size: 0.8rem;
+        padding: 0.75rem;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     }
 
     .hero-stats li {
@@ -535,9 +888,6 @@ body {
         flex-direction: column;
     }
 
-    .phone-mockup {
-        transform: scale(0.85);
-    }
 
     .hero-checklist {
         flex-direction: column;
@@ -558,9 +908,32 @@ body {
     .store-button {
         width: 100%;
         justify-content: center;
+        padding: 1rem;
+        min-height: 56px;
     }
 
-    .info-grid {
-        grid-template-columns: 1fr;
+
+    /* Carousel responsive adjustments */
+    .screenshot-carousel {
+        max-width: 100%;
+    }
+
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.5rem;
+    }
+
+    .carousel-btn-prev {
+        left: 10px;
+    }
+
+    .carousel-btn-next {
+        right: 10px;
+    }
+
+    .carousel-slide figcaption {
+        font-size: 0.8rem;
+        padding: 1rem 0.8rem 0.8rem;
     }
 }
