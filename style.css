@@ -287,14 +287,31 @@ body {
 /* Hero Download Buttons */
 .hero-download-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     justify-content: center;
-    flex-wrap: wrap;
-    margin: 2rem 0 2.5rem 0;
+    align-items: center;
+    margin: 1.5rem 0 2rem 0;
 }
 
 .hero-download-buttons .store-button {
-    min-width: 160px;
+    min-width: 140px;
+    max-width: 180px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+}
+
+.hero-download-buttons .store-button .store-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.hero-download-buttons .store-button .button-text .small {
+    font-size: 0.65rem;
+}
+
+.hero-download-buttons .store-button .button-text .large {
+    font-size: 0.9rem;
 }
 
 .hero-stats {
@@ -911,13 +928,27 @@ body {
     }
 
     .hero-download-buttons {
-        flex-direction: column;
-        align-items: center;
+        gap: 0.5rem;
     }
 
     .hero-download-buttons .store-button {
-        width: 100%;
-        max-width: 280px;
+        min-width: 120px;
+        max-width: 150px;
+        padding: 0.45rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .hero-download-buttons .store-button .store-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero-download-buttons .store-button .button-text .small {
+        font-size: 0.6rem;
+    }
+
+    .hero-download-buttons .store-button .button-text .large {
+        font-size: 0.85rem;
     }
 
 
