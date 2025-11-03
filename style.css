@@ -206,7 +206,8 @@ body {
 /* Clean screenshot card */
 .app-screenshot {
     margin: 0;
-    width: clamp(260px, 28vw, 360px);
+    /* Make the screenshot noticeably smaller on desktop */
+    width: clamp(200px, 20vw, 280px);
     border-radius: 22px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(31, 41, 51, 0.18);
