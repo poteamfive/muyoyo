@@ -86,8 +86,35 @@ body {
 .subtitle {
     font-size: 1.05rem;
     color: rgba(31, 41, 51, 0.85);
-    max-width: 460px;
+    max-width: 640px;
     margin: 0 auto 2rem;
+}
+
+.hero-checklist {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.7rem auto 2rem;
+    max-width: 600px;
+}
+
+.hero-checklist li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-dark);
+    box-shadow: 0 12px 24px rgba(90, 93, 240, 0.12);
+}
+
+.check-icon {
+    font-size: 1rem;
 }
 
 .hero-actions {
@@ -193,27 +220,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.8rem;
+    padding: 0.75rem;
+    overflow: hidden;
 }
 
-.mockup-placeholder {
+.phone-screen img {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(145deg, rgba(90, 93, 240, 0.12), rgba(90, 220, 255, 0.15));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 600;
-}
-
-.mockup-icon {
-    font-size: 2.2rem;
-    margin-bottom: 0.75rem;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.2);
 }
 
 .section-header {
@@ -289,6 +305,63 @@ body {
     font-size: 0.92rem;
     color: var(--muted);
     line-height: 1.5;
+}
+
+.app-info {
+    margin: 3rem 0;
+    padding: 2.5rem 2.2rem;
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(90, 93, 240, 0.1), rgba(159, 169, 255, 0.22));
+    box-shadow: var(--shadow-soft);
+}
+
+.app-info-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.6rem;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    padding: 1.6rem;
+    box-shadow: 0 15px 32px rgba(31, 41, 51, 0.12);
+    border: 1px solid rgba(90, 93, 240, 0.12);
+}
+
+.info-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: var(--primary-dark);
+}
+
+.info-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.keywords-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.keywords-list span {
+    background: rgba(90, 93, 240, 0.16);
+    color: var(--primary-dark);
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
 .highlights {
@@ -438,6 +511,10 @@ body {
         padding: 2.2rem 1.5rem;
     }
 
+    .hero-checklist {
+        margin: 1.2rem auto 1.6rem;
+    }
+
     .phone-mockup {
         transform: scale(0.9);
     }
@@ -448,6 +525,10 @@ body {
 
     .section-header h2 {
         font-size: 1.8rem;
+    }
+
+    .app-info {
+        padding: 2.2rem 1.6rem;
     }
 }
 
@@ -469,6 +550,17 @@ body {
         transform: scale(0.85);
     }
 
+    .hero-checklist {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-checklist li {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+    }
+
     .download-buttons {
         flex-direction: column;
         align-items: center;
@@ -477,5 +569,9 @@ body {
     .store-button {
         width: 100%;
         justify-content: center;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
     }
 }
